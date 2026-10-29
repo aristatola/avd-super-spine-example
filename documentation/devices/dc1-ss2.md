@@ -392,10 +392,10 @@ ASN Notation: asplain
 
 | Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Maximum-accepted-routes | Maximum-advertised-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive | TTL Max Hops |
 | -------- | --------- | --- | -------- | -------------- | -------------- | ----------------------- | ------------------------- | ---------- | --- | --------------------- | ---------------------- | ------- | ------------ |
-| 192.168.101.11 | 65001 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
-| 192.168.101.12 | 65001 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
-| 192.168.101.13 | 65002 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
-| 192.168.101.14 | 65002 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.101.1 | 65100 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.101.2 | 65100 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.101.3 | 65102 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.101.4 | 65102 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
 | 192.168.103.43 | 65001 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - | - | - |
 | 192.168.103.47 | 65001 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - | - | - |
 | 192.168.103.51 | 65002 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - | - | - |
@@ -427,18 +427,18 @@ router bgp 65000
    neighbor IPv4-UNDERLAY-PEERS peer group
    neighbor IPv4-UNDERLAY-PEERS send-community
    neighbor IPv4-UNDERLAY-PEERS maximum-routes 256000
-   neighbor 192.168.101.11 peer group EVPN-OVERLAY-PEERS
-   neighbor 192.168.101.11 remote-as 65001
-   neighbor 192.168.101.11 description dc1-spine1_Loopback0
-   neighbor 192.168.101.12 peer group EVPN-OVERLAY-PEERS
-   neighbor 192.168.101.12 remote-as 65001
-   neighbor 192.168.101.12 description dc1-spine2_Loopback0
-   neighbor 192.168.101.13 peer group EVPN-OVERLAY-PEERS
-   neighbor 192.168.101.13 remote-as 65002
-   neighbor 192.168.101.13 description dc1-spine3_Loopback0
-   neighbor 192.168.101.14 peer group EVPN-OVERLAY-PEERS
-   neighbor 192.168.101.14 remote-as 65002
-   neighbor 192.168.101.14 description dc1-spine4_Loopback0
+   neighbor 192.168.101.1 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.1 remote-as 65100
+   neighbor 192.168.101.1 description dc1-leaf1a_Loopback0
+   neighbor 192.168.101.2 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.2 remote-as 65100
+   neighbor 192.168.101.2 description dc1-leaf1b_Loopback0
+   neighbor 192.168.101.3 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.3 remote-as 65102
+   neighbor 192.168.101.3 description dc1-leaf2a_Loopback0
+   neighbor 192.168.101.4 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.4 remote-as 65102
+   neighbor 192.168.101.4 description dc1-leaf2b_Loopback0
    neighbor 192.168.103.43 peer group IPv4-UNDERLAY-PEERS
    neighbor 192.168.103.43 remote-as 65001
    neighbor 192.168.103.43 description dc1-spine1_Ethernet2

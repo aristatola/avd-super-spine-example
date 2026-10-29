@@ -7,8 +7,8 @@ spine:
     loopback_ipv4_pool: 192.168.101.0/24
     uplink_switches: [dc1-ss1, dc1-ss2] # Where the spine uplinks go
     uplink_ipv4_pool: 192.168.103.0/24 # For the p2p interfaces to chopped up into /31s
-    evpn_route_servers: [dc1-ss1, dc1-ss2]
-    # evpn_role: none # Disable EVPN route server
+    # evpn_route_servers: [dc1-ss1, dc1-ss2]
+    evpn_role: none # Disable EVPN route server
   nodes:
     - name: dc1-spine3
       id: 13
@@ -33,6 +33,8 @@ l3leaf:
     virtual_router_mac_address: 00:1c:73:00:00:99 # The vMAC for the anycast gateways
     spanning_tree_mode: mstp # Spanning Tree is still enabled even in EVPN setups
     spanning_tree_priority: 16384
+
+    evpn_route_servers: [dc1-ss1, dc1-ss2]
 
   node_groups:
     - group: dc1-leaf2
