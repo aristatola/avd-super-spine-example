@@ -17,6 +17,16 @@ mgmt_gateway: 172.16.1.1
 # VLAN-aware bundles reduce BGP EVPN route count by bundling VLANs
 evpn_vlan_aware_bundles: true
 
+cv_settings:
+  cvaas:
+    enabled: true
+    clusters:
+      - name: pod25
+        region: staging
+        vrf: MGMT
+        token_file: /mnt/flash/cv-onboarding-token
+        source_interface: Management0
+
 # Define default node types based on hostnames
 # Eliminates need to specify 'type' per node in inventory
 default_node_types:

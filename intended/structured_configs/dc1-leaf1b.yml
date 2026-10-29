@@ -1,6 +1,16 @@
 aaa_root:
   disabled: true
 config_end: true
+daemon_terminattr:
+  cvaddrs:
+  - apiserver.cv-staging.corp.arista.io:443
+  cvauth:
+    method: token-secure
+    token_file: /mnt/flash/cv-onboarding-token
+  cvsourceintf: Management0
+  cvvrf: MGMT
+  disable_aaa: false
+  smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
 enable_password:
   disabled: true
 ethernet_interfaces:
