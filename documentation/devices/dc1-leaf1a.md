@@ -84,11 +84,13 @@ interface Management1
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
+| 8.8.8.8 | MGMT | - |
 | 192.168.1.1 | MGMT | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
+ip name-server vrf MGMT 8.8.8.8
 ip name-server vrf MGMT 192.168.1.1
 ```
 
@@ -196,7 +198,7 @@ Enable password has been disabled
 ```eos
 !
 daemon TerminAttr
-   exec /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/mnt/flash/cv-onboarding-token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -taillogs -cvsourceintf=Management0
+   exec /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/mnt/flash/cv-onboarding-token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -taillogs -cvsourceintf=Management1
    no shutdown
 ```
 
