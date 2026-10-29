@@ -1,5 +1,36 @@
 {
-  "freeTextAnnotations": [],
+  "freeTextAnnotations": [
+    {
+      "id": "freeText_1793281439719",
+      "text": "10.1.10.11/24",
+      "position": {
+        "x": 322.6230003468919,
+        "y": 715.1602259032888
+      },
+      "fontSize": 14,
+      "fontColor": "#3b3b3b",
+      "fontWeight": "normal",
+      "fontStyle": "normal",
+      "textDecoration": "none",
+      "textAlign": "left",
+      "fontFamily": "Arial"
+    },
+    {
+      "id": "freeText_1793281439719-1",
+      "text": "10.1.20.21/24",
+      "position": {
+        "x": 833.2675343643962,
+        "y": 707.3265321002142
+      },
+      "fontSize": 14,
+      "fontColor": "#3b3b3b",
+      "fontWeight": "normal",
+      "fontStyle": "normal",
+      "textDecoration": "none",
+      "textAlign": "left",
+      "fontFamily": "Arial"
+    }
+  ],
   "freeShapeAnnotations": [],
   "trafficRateAnnotations": [],
   "groupStyleAnnotations": [],

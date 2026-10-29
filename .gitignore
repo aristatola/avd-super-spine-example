@@ -11,3 +11,6 @@ wheels/
 
 # Virtual environments
 .venv
+
+# ignore clab stuff
+clab-Single-DC-Multipod-L3LS/
