@@ -75,12 +75,12 @@ topology:
         # Hosts
         host1:
             mgmt-ipv4: 172.16.1.101
-            startup-config: ../intended/configs/host1.cfg
+            startup-config: init-configs/host1.cfg
             binds:
                 - sn/host1.txt:/mnt/flash/ceos-config:ro
         host2:
             mgmt-ipv4: 172.16.1.102
-            startup-config: ../intended/configs/host2.cfg
+            startup-config: init-configs/host2.cfg
             binds:
                 - sn/host2.txt:/mnt/flash/ceos-config:ro
 
