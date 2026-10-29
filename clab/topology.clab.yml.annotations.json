@@ -1,0 +1,277 @@
+{
+  "freeTextAnnotations": [],
+  "freeShapeAnnotations": [],
+  "trafficRateAnnotations": [],
+  "groupStyleAnnotations": [],
+  "networkNodeAnnotations": [],
+  "nodeAnnotations": [
+    {
+      "id": "dc1-ss1",
+      "position": {
+        "x": 400,
+        "y": 20
+      }
+    },
+    {
+      "id": "dc1-ss2",
+      "position": {
+        "x": 660,
+        "y": 20
+      }
+    },
+    {
+      "id": "dc1-spine1",
+      "position": {
+        "x": 180,
+        "y": 280
+      }
+    },
+    {
+      "id": "dc1-spine2",
+      "position": {
+        "x": 400,
+        "y": 280
+      }
+    },
+    {
+      "id": "dc1-spine3",
+      "position": {
+        "x": 660,
+        "y": 280
+      }
+    },
+    {
+      "id": "dc1-spine4",
+      "position": {
+        "x": 880,
+        "y": 280
+      }
+    },
+    {
+      "id": "dc1-leaf1a",
+      "position": {
+        "x": 180,
+        "y": 480
+      }
+    },
+    {
+      "id": "dc1-leaf1b",
+      "position": {
+        "x": 400,
+        "y": 480
+      }
+    },
+    {
+      "id": "dc1-leaf2a",
+      "position": {
+        "x": 660,
+        "y": 480
+      }
+    },
+    {
+      "id": "dc1-leaf2b",
+      "position": {
+        "x": 880,
+        "y": 480
+      }
+    },
+    {
+      "id": "host1",
+      "position": {
+        "x": 280,
+        "y": 700
+      }
+    },
+    {
+      "id": "host2",
+      "position": {
+        "x": 780,
+        "y": 680
+      }
+    }
+  ],
+  "edgeAnnotations": [
+    {
+      "id": "Clab-Link23",
+      "source": "dc1-leaf2b",
+      "target": "host2",
+      "sourceEndpoint": "eth5",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link7",
+      "source": "dc1-ss2",
+      "target": "dc1-spine4",
+      "sourceEndpoint": "eth4",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link5",
+      "source": "dc1-ss2",
+      "target": "dc1-spine3",
+      "sourceEndpoint": "eth3",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link6",
+      "source": "dc1-ss1",
+      "target": "dc1-spine4",
+      "sourceEndpoint": "eth4",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link4",
+      "source": "dc1-ss1",
+      "target": "dc1-spine3",
+      "sourceEndpoint": "eth3",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link3",
+      "source": "dc1-ss2",
+      "target": "dc1-spine2",
+      "sourceEndpoint": "eth2",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link2",
+      "source": "dc1-ss1",
+      "target": "dc1-spine2",
+      "sourceEndpoint": "eth2",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link0",
+      "source": "dc1-ss1",
+      "target": "dc1-spine1",
+      "sourceEndpoint": "eth1",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link15",
+      "source": "dc1-spine4",
+      "target": "dc1-leaf2b",
+      "sourceEndpoint": "eth4",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 51
+    },
+    {
+      "id": "Clab-Link1",
+      "source": "dc1-ss2",
+      "target": "dc1-spine1",
+      "sourceEndpoint": "eth1",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link13",
+      "source": "dc1-spine4",
+      "target": "dc1-leaf2a",
+      "sourceEndpoint": "eth3",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link14",
+      "source": "dc1-spine3",
+      "target": "dc1-leaf2b",
+      "sourceEndpoint": "eth4",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link12",
+      "source": "dc1-spine3",
+      "target": "dc1-leaf2a",
+      "sourceEndpoint": "eth3",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 52
+    },
+    {
+      "id": "Clab-Link11",
+      "source": "dc1-spine2",
+      "target": "dc1-leaf1b",
+      "sourceEndpoint": "eth4",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 48
+    },
+    {
+      "id": "Clab-Link8",
+      "source": "dc1-spine1",
+      "target": "dc1-leaf1a",
+      "sourceEndpoint": "eth3",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 50
+    },
+    {
+      "id": "Clab-Link10",
+      "source": "dc1-spine1",
+      "target": "dc1-leaf1b",
+      "sourceEndpoint": "eth4",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link9",
+      "source": "dc1-spine2",
+      "target": "dc1-leaf1a",
+      "sourceEndpoint": "eth3",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link21",
+      "source": "dc1-leaf1b",
+      "target": "host1",
+      "sourceEndpoint": "eth5",
+      "targetEndpoint": "eth2",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link20",
+      "source": "dc1-leaf1a",
+      "target": "host1",
+      "sourceEndpoint": "eth5",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    },
+    {
+      "id": "Clab-Link22",
+      "source": "dc1-leaf2a",
+      "target": "host2",
+      "sourceEndpoint": "eth5",
+      "targetEndpoint": "eth1",
+      "endpointLabelOffsetEnabled": true,
+      "endpointLabelOffset": 60
+    }
+  ],
+  "aliasEndpointAnnotations": [],
+  "viewerSettings": {}
+}
