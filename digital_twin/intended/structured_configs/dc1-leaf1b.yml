@@ -237,7 +237,12 @@ metadata:
   validate_hardware:
     enabled: false
   digital_twin:
-    environment: containerlab
+    environment: act
+    node_type: veos
+    ip_addr: 172.16.1.22/24
+    version: 4.33.1.1F
+    username: cvpadmin
+    password: cvp123!
 mlag_configuration:
   domain_id: dc1-leaf1
   local_interface: Vlan4094

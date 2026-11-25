@@ -20,7 +20,7 @@
     documentation_dir_name: "digital_twin/documentation"
     avd_digital_twin_mode: true
     digital_twin:
-      environment: containerlab
+      environment: "{{ twin_type }}"
       fabric: {}
   tasks:
     - name: Remove stale digital twin directory

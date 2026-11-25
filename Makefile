@@ -20,7 +20,11 @@ build: ## Generate configurations and documentation
 
 .PHONY: build-twin
 build-twin: ## Generate digital twin configurations for the DIGITAL_TWIN inventory group
-	ansible-playbook build-twin.yml -e twinventory=DIGITAL_TWIN
+	ansible-playbook build-twin.yml -e twinventory=DIGITAL_TWIN -e twin_type=act
+
+.PHONY: build-twin-clab
+build-twin-clab: ## Generate digital twin configurations for the DIGITAL_TWIN inventory group
+	ansible-playbook build-twin.yml -e twinventory=DIGITAL_TWIN -e twin_type=containerlab
 
 .PHONY: deploy
 deploy: ## Deploy generated configurations using eAPI
