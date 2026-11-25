@@ -18,7 +18,12 @@ stop: ## Destroy the lab
 build: ## Destroy the lab
 	ansible-playbook build.yml
 
+<<<<<<< HEAD
 .PHONY: deploy
 deploy: ## Destroy the lab
+=======
+.PHONY: build
+build: ## Destroy the lab
+>>>>>>> 5523af0 (basleine)
 	ansible-playbook deploy.yml
 
