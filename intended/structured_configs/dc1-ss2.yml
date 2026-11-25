@@ -1,6 +1,7 @@
 aaa_root:
   disabled: true
 config_end: true
+<<<<<<< HEAD
 daemon_terminattr:
   cvaddrs:
   - apiserver.cv-staging.corp.arista.io:443
@@ -11,6 +12,8 @@ daemon_terminattr:
   cvvrf: MGMT
   disable_aaa: false
   smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
+=======
+>>>>>>> cc8e22f (Fix Makefile)
 enable_password:
   disabled: true
 ethernet_interfaces:
@@ -67,7 +70,10 @@ ip_name_server:
   vrfs:
   - name: MGMT
     servers:
+<<<<<<< HEAD
     - ip_address: 8.8.8.8
+=======
+>>>>>>> cc8e22f (Fix Makefile)
     - ip_address: 192.168.1.1
 ip_routing: true
 local_users:

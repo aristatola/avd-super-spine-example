@@ -11,8 +11,11 @@
 - [Authentication](#authentication)
   - [Local Users](#local-users)
   - [Enable Password](#enable-password)
+<<<<<<< HEAD
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
+=======
+>>>>>>> cc8e22f (Fix Makefile)
 - [MLAG](#mlag)
   - [MLAG Summary](#mlag-summary)
   - [MLAG Device Configuration](#mlag-device-configuration)
@@ -84,13 +87,19 @@ interface Management1
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
+<<<<<<< HEAD
 | 8.8.8.8 | MGMT | - |
+=======
+>>>>>>> cc8e22f (Fix Makefile)
 | 192.168.1.1 | MGMT | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
+<<<<<<< HEAD
 ip name-server vrf MGMT 8.8.8.8
+=======
+>>>>>>> cc8e22f (Fix Makefile)
 ip name-server vrf MGMT 192.168.1.1
 ```
 
@@ -183,6 +192,7 @@ username arista privilege 15 role network-admin secret sha512 <removed>
 
 Enable password has been disabled
 
+<<<<<<< HEAD
 ## Monitoring
 
 ### TerminAttr Daemon
@@ -202,6 +212,8 @@ daemon TerminAttr
    no shutdown
 ```
 
+=======
+>>>>>>> cc8e22f (Fix Makefile)
 ## MLAG
 
 ### MLAG Summary

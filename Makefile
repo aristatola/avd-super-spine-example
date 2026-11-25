@@ -15,9 +15,10 @@ stop: ## Destroy the lab
 # AVD build and deploy
 
 .PHONY: build
-build: ## Destroy the lab
+build: ## Generate configurations and documentation
 	ansible-playbook build.yml
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 .PHONY: deploy
 deploy: ## Destroy the lab
@@ -25,5 +26,8 @@ deploy: ## Destroy the lab
 .PHONY: build
 build: ## Destroy the lab
 >>>>>>> 5523af0 (basleine)
+=======
+.PHONY: deploy
+deploy: ## Deploy generated configurations using eAPI
+>>>>>>> cc8e22f (Fix Makefile)
 	ansible-playbook deploy.yml
-
