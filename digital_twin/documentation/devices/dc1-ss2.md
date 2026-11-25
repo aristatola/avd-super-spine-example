@@ -1,0 +1,691 @@
+# dc1-ss2
+
+## Table of Contents
+
+- [Management](#management)
+  - [Management Interfaces](#management-interfaces)
+  - [IP Name Servers](#ip-name-servers)
+  - [Domain Lookup](#domain-lookup)
+  - [NTP](#ntp)
+  - [Management API HTTP](#management-api-http)
+- [Authentication](#authentication)
+  - [Local Users](#local-users)
+  - [Enable Password](#enable-password)
+- [DHCP Server](#dhcp-server)
+  - [DHCP Servers Summary](#dhcp-servers-summary)
+  - [DHCP Server Configuration](#dhcp-server-configuration)
+- [Monitoring](#monitoring)
+  - [TerminAttr Daemon](#terminattr-daemon)
+- [Spanning Tree](#spanning-tree)
+  - [Spanning Tree Summary](#spanning-tree-summary)
+  - [Spanning Tree Device Configuration](#spanning-tree-device-configuration)
+- [Internal VLAN Allocation Policy](#internal-vlan-allocation-policy)
+  - [Internal VLAN Allocation Policy Summary](#internal-vlan-allocation-policy-summary)
+  - [Internal VLAN Allocation Policy Device Configuration](#internal-vlan-allocation-policy-device-configuration)
+- [Interfaces](#interfaces)
+  - [Ethernet Interfaces](#ethernet-interfaces)
+  - [Loopback Interfaces](#loopback-interfaces)
+- [Routing](#routing)
+  - [Service Routing Protocols Model](#service-routing-protocols-model)
+  - [IP Routing](#ip-routing)
+  - [IPv6 Routing](#ipv6-routing)
+  - [Static Routes](#static-routes)
+  - [Router BGP](#router-bgp)
+- [BFD](#bfd)
+  - [Router BFD](#router-bfd)
+- [Filters](#filters)
+  - [Prefix-lists](#prefix-lists)
+  - [Route-maps](#route-maps)
+- [VRF Instances](#vrf-instances)
+  - [VRF Instances Summary](#vrf-instances-summary)
+  - [VRF Instances Device Configuration](#vrf-instances-device-configuration)
+
+## Management
+
+### Management Interfaces
+
+#### Management Interfaces Summary
+
+##### IPv4
+
+| Management Interface | Description | Type | VRF | IP Address | Gateway |
+| -------------------- | ----------- | ---- | --- | ---------- | ------- |
+| Management1 | OOB_MANAGEMENT | oob | MGMT | 172.16.1.26/24 | 172.16.1.1 |
+
+##### IPv6
+
+| Management Interface | Description | Type | VRF | IPv6 Address | IPv6 Gateway | ND RA Disabled | ND RA RX Accept | ND Managed Config Flag | ND Other Config Flag | ND Cache | ND RA DNS Servers |
+| -------------------- | ----------- | ---- | --- | ------------ | ------------ | -------------- | --------------- | ---------------------- | -------------------- | -------- | ----------------- |
+| Management1 | OOB_MANAGEMENT | oob | MGMT | - | - | - | - | - | - | - | - |
+
+#### Management Interfaces Device Configuration
+
+```eos
+!
+interface Management1
+   description OOB_MANAGEMENT
+   no shutdown
+   vrf MGMT
+   ip address 172.16.1.26/24
+```
+
+### IP Name Servers
+
+#### IP Name Servers Summary
+
+| Name Server | VRF | Priority |
+| ----------- | --- | -------- |
+| 8.8.8.8 | MGMT | - |
+| 192.168.1.1 | MGMT | - |
+
+#### IP Name Servers Device Configuration
+
+```eos
+ip name-server vrf MGMT 8.8.8.8
+ip name-server vrf MGMT 192.168.1.1
+```
+
+### Domain Lookup
+
+#### DNS Domain Lookup Summary
+
+| Source interface | vrf |
+| ---------------- | --- |
+| Management1 | MGMT |
+
+#### DNS Domain Lookup Device Configuration
+
+```eos
+ip domain lookup vrf MGMT source-interface Management1
+```
+
+### NTP
+
+#### NTP Summary
+
+##### NTP Local Interface
+
+| Interface | VRF |
+| --------- | --- |
+| Management1 | MGMT |
+
+##### NTP Servers
+
+NTP servers VRF: MGMT
+
+| Server | Preferred | Burst | iBurst | Version | Min Poll | Max Poll | Local-interface | Source Address | Key |
+| ------ | --------- | ----- | ------ | ------- | -------- | -------- | --------------- | -------------- | --- |
+| 0.pool.ntp.org | True | - | - | - | - | - | - | - | - |
+
+#### NTP Device Configuration
+
+```eos
+!
+ntp local-interface vrf MGMT Management1
+ntp server vrf MGMT 0.pool.ntp.org prefer
+```
+
+### Management API HTTP
+
+#### Management API HTTP Summary
+
+| HTTP | HTTPS | UNIX-Socket | Default Services | Session Timeout |
+| ---- | ----- | ----------- | ---------------- | --------------- |
+| False | True | - | - | 1440 minutes |
+
+#### Management API VRF Access
+
+| VRF Name | IPv4 ACL | IPv6 ACL |
+| -------- | -------- | -------- |
+| MGMT | - | - |
+
+#### Management API HTTP Device Configuration
+
+```eos
+!
+management api http-commands
+   protocol https
+   no shutdown
+   !
+   vrf MGMT
+      no shutdown
+```
+
+## Authentication
+
+### Local Users
+
+#### Local Users Summary
+
+| User | Privilege | Role | Disabled | Shell |
+| ---- | --------- | ---- | -------- | ----- |
+| admin | 15 | network-admin | False | - |
+| arista | 15 | network-admin | False | - |
+
+#### Local Users Device Configuration
+
+```eos
+!
+username admin privilege 15 role network-admin nopassword
+username arista privilege 15 role network-admin secret sha512 <removed>
+```
+
+### Enable Password
+
+Enable password has been disabled
+
+## DHCP Server
+
+### DHCP Servers Summary
+
+| DHCP Server Enabled | VRF | IPv4 DNS Domain | IPv4 DNS Servers | TFTP Bootfile Name (Option 67) | TFTP Server Name (Option 66) | TFTP Server IPs (Option 150) | IPv4 Lease Time | IPv6 DNS Domain | IPv6 DNS Servers | IPv6 TFTP Bootfile URL (Option 59) | IPv6 Lease Time |
+| ------------------- | --- | --------------- | ---------------- | ------------------------------ | ---------------------------- | ---------------------------- | --------------- | --------------- | ---------------- | ---------------------------------- | --------------- |
+| True | default | - | 8.8.8.8, 8.8.4.4, 1.1.1.1 | - | - | - | 1 days 0 hours 0 minutes | - | - | - | - |
+
+#### VRF default DHCP Server
+
+##### IPv4 Subnets
+
+| Subnet | Name | DNS Servers | Default Gateway | Lease Time | Ranges | TFTP Bootfile Name (Option 67) | TFTP Server Name (Option 66) | TFTP Server IPs (Option 150) |
+| ------ | ---- | ----------- | --------------- | ---------- | ------ | ------------------------------ | ---------------------------- | ---------------------------- |
+| 10.26.10.0/24 | VLAN10 | - | 10.26.10.1 | - | 10.26.10.11-10.26.10.254 | - | - | - |
+| 10.26.20.0/24 | VLAN20 | - | 10.26.20.1 | - | 10.26.20.11-10.26.20.254 | - | - | - |
+| 10.26.25.0/24 | VLAN25 | - | 10.26.25.1 | - | 10.26.25.11-10.26.25.254 | - | - | - |
+| 10.26.30.0/24 | VLAN30 | - | 10.26.30.1 | - | 10.26.30.11-10.26.30.254 | - | - | - |
+| 10.26.42.0/24 | VLAN42 | - | 10.26.42.1 | - | 10.26.42.11-10.26.42.254 | - | - | - |
+| 10.26.44.0/24 | VLAN44 | - | 10.26.44.1 | - | 10.26.44.11-10.26.44.254 | - | - | - |
+| 10.26.46.0/24 | VLAN46 | - | 10.26.46.1 | - | 10.26.46.11-10.26.46.254 | - | - | - |
+| 10.26.48.0/24 | VLAN48 | - | 10.26.48.1 | - | 10.26.48.11-10.26.48.254 | - | - | - |
+| 10.26.50.0/24 | VLAN50 | - | 10.26.50.1 | - | 10.26.50.11-10.26.50.254 | - | - | - |
+| 10.26.51.0/24 | VLAN51 | - | 10.26.51.1 | - | 10.26.51.11-10.26.51.254 | - | - | - |
+| 10.26.60.0/24 | VLAN60 | - | 10.26.60.1 | - | 10.26.60.11-10.26.60.254 | - | - | - |
+| 10.26.70.0/24 | VLAN70 | - | 10.26.70.1 | - | 10.26.70.11-10.26.70.254 | - | - | - |
+| 10.26.99.0/24 | VLAN99 | - | 10.26.99.1 | - | 10.26.99.11-10.26.99.254 | - | - | - |
+| 10.26.102.0/24 | VLAN102 | - | 10.26.102.1 | - | 10.26.102.11-10.26.102.254 | - | - | - |
+| 10.26.199.0/24 | VLAN199 | - | 10.26.199.1 | - | 10.26.199.11-10.26.199.254 | - | - | - |
+| 10.26.200.0/24 | VLAN200 | - | 10.26.200.1 | - | 10.26.200.11-10.26.200.254 | - | - | - |
+
+###### DHCP Reservations in subnet 10.26.10.0/24
+
+| Mac Address | IPv4 Address | Hostname |
+| ----------- | ------------ | -------- |
+| FE:ED:BE:EF:AA:AA | 10.26.10.100 | testhost1 |
+
+##### IPv4 Vendor Options
+
+| Vendor ID | Sub-option Code | Sub-option Type | Sub-option Data |
+| --------- | --------------- | --------------- | --------------- |
+| NTP | 42 | array ipv4-address | 216.239.35.0 216.239.35.4 |
+
+### DHCP Server Configuration
+
+```eos
+!
+dhcp server
+   lease time ipv4 1 days 0 hours 0 minutes
+   dns server ipv4 1.1.1.1 8.8.4.4 8.8.8.8
+   !
+   subnet 10.26.10.0/24
+      reservations
+         mac-address FE:ED:BE:EF:AA:AA
+            ipv4-address 10.26.10.100
+            hostname testhost1
+      !
+      range 10.26.10.11 10.26.10.254
+      name VLAN10
+      default-gateway 10.26.10.1
+   !
+   subnet 10.26.20.0/24
+      !
+      range 10.26.20.11 10.26.20.254
+      name VLAN20
+      default-gateway 10.26.20.1
+   !
+   subnet 10.26.25.0/24
+      !
+      range 10.26.25.11 10.26.25.254
+      name VLAN25
+      default-gateway 10.26.25.1
+   !
+   subnet 10.26.30.0/24
+      !
+      range 10.26.30.11 10.26.30.254
+      name VLAN30
+      default-gateway 10.26.30.1
+   !
+   subnet 10.26.42.0/24
+      !
+      range 10.26.42.11 10.26.42.254
+      name VLAN42
+      default-gateway 10.26.42.1
+   !
+   subnet 10.26.44.0/24
+      !
+      range 10.26.44.11 10.26.44.254
+      name VLAN44
+      default-gateway 10.26.44.1
+   !
+   subnet 10.26.46.0/24
+      !
+      range 10.26.46.11 10.26.46.254
+      name VLAN46
+      default-gateway 10.26.46.1
+   !
+   subnet 10.26.48.0/24
+      !
+      range 10.26.48.11 10.26.48.254
+      name VLAN48
+      default-gateway 10.26.48.1
+   !
+   subnet 10.26.50.0/24
+      !
+      range 10.26.50.11 10.26.50.254
+      name VLAN50
+      default-gateway 10.26.50.1
+   !
+   subnet 10.26.51.0/24
+      !
+      range 10.26.51.11 10.26.51.254
+      name VLAN51
+      default-gateway 10.26.51.1
+   !
+   subnet 10.26.60.0/24
+      !
+      range 10.26.60.11 10.26.60.254
+      name VLAN60
+      default-gateway 10.26.60.1
+   !
+   subnet 10.26.70.0/24
+      !
+      range 10.26.70.11 10.26.70.254
+      name VLAN70
+      default-gateway 10.26.70.1
+   !
+   subnet 10.26.99.0/24
+      !
+      range 10.26.99.11 10.26.99.254
+      name VLAN99
+      default-gateway 10.26.99.1
+   !
+   subnet 10.26.102.0/24
+      !
+      range 10.26.102.11 10.26.102.254
+      name VLAN102
+      default-gateway 10.26.102.1
+   !
+   subnet 10.26.199.0/24
+      !
+      range 10.26.199.11 10.26.199.254
+      name VLAN199
+      default-gateway 10.26.199.1
+   !
+   subnet 10.26.200.0/24
+      !
+      range 10.26.200.11 10.26.200.254
+      name VLAN200
+      default-gateway 10.26.200.1
+   !
+   vendor-option ipv4 NTP
+      sub-option 42 type array ipv4-address data 216.239.35.0 216.239.35.4
+```
+
+## Monitoring
+
+### TerminAttr Daemon
+
+#### TerminAttr Daemon Summary
+
+| CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Sysdb Excludes | Ingest Exclude | Bypass AAA |
+| -------------- | ------------------- | --- | -------------- | -------------- | -------------- | -------------- | ---------- |
+| gzip | apiserver.cv-staging.corp.arista.io:443 | MGMT | token-secure,/mnt/flash/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | - | - | False |
+
+#### TerminAttr Daemon Device Configuration
+
+```eos
+!
+daemon TerminAttr
+   exec /usr/bin/TerminAttr -cvaddr=apiserver.cv-staging.corp.arista.io:443 -cvauth=token-secure,/mnt/flash/cv-onboarding-token -cvvrf=MGMT -smashexcludes=ale,flexCounter,hardware,kni,pulse,strata -taillogs -cvsourceintf=Management1
+   no shutdown
+```
+
+## Spanning Tree
+
+### Spanning Tree Summary
+
+STP mode: **none**
+
+### Spanning Tree Device Configuration
+
+```eos
+!
+spanning-tree mode none
+```
+
+## Internal VLAN Allocation Policy
+
+### Internal VLAN Allocation Policy Summary
+
+| Policy Allocation | Range Beginning | Range Ending |
+| ----------------- | --------------- | ------------ |
+| ascending | 1006 | 1199 |
+
+### Internal VLAN Allocation Policy Device Configuration
+
+```eos
+!
+vlan internal order ascending range 1006 1199
+```
+
+## Interfaces
+
+### Ethernet Interfaces
+
+#### Ethernet Interfaces Summary
+
+##### L2
+
+| Interface | Description | Mode | VLANs | Native VLAN | Trunk Group | Channel-Group |
+| --------- | ----------- | ---- | ----- | ----------- | ----------- | ------------- |
+
+*Inherited from Port-Channel Interface
+
+##### IPv4
+
+| Interface | Description | Channel Group | IP Address | VRF | MTU | Shutdown | ACL In | ACL Out |
+| --------- | ----------- | ------------- | ---------- | --- | --- | -------- | ------ | ------- |
+| Ethernet1 | P2P_dc1-spine1_Ethernet2 | - | 192.168.103.42/31 | default | 9214 | False | - | - |
+| Ethernet2 | P2P_dc1-spine2_Ethernet2 | - | 192.168.103.46/31 | default | 9214 | False | - | - |
+| Ethernet3 | P2P_dc1-spine3_Ethernet2 | - | 192.168.103.50/31 | default | 9214 | False | - | - |
+| Ethernet4 | P2P_dc1-spine4_Ethernet2 | - | 192.168.103.54/31 | default | 9214 | False | - | - |
+
+#### Ethernet Interfaces Device Configuration
+
+```eos
+!
+interface Ethernet1
+   description P2P_dc1-spine1_Ethernet2
+   no shutdown
+   mtu 9214
+   no switchport
+   ip address 192.168.103.42/31
+!
+interface Ethernet2
+   description P2P_dc1-spine2_Ethernet2
+   no shutdown
+   mtu 9214
+   no switchport
+   ip address 192.168.103.46/31
+!
+interface Ethernet3
+   description P2P_dc1-spine3_Ethernet2
+   no shutdown
+   mtu 9214
+   no switchport
+   ip address 192.168.103.50/31
+!
+interface Ethernet4
+   description P2P_dc1-spine4_Ethernet2
+   no shutdown
+   mtu 9214
+   no switchport
+   ip address 192.168.103.54/31
+```
+
+### Loopback Interfaces
+
+#### Loopback Interfaces Summary
+
+##### IPv4
+
+| Interface | Description | VRF | IP Address |
+| --------- | ----------- | --- | ---------- |
+| Loopback0 | ROUTER_ID | default | 192.168.101.202/32 |
+
+##### IPv6
+
+| Interface | Description | VRF | IPv6 Addresses |
+| --------- | ----------- | --- | -------------- |
+| Loopback0 | ROUTER_ID | default | - |
+
+#### Loopback Interfaces Device Configuration
+
+```eos
+!
+interface Loopback0
+   description ROUTER_ID
+   no shutdown
+   ip address 192.168.101.202/32
+```
+
+## Routing
+
+### Service Routing Protocols Model
+
+Multi agent routing protocol model enabled
+
+```eos
+!
+service routing protocols model multi-agent
+```
+
+### IP Routing
+
+#### IP Routing Summary
+
+| VRF | Routing Enabled |
+| --- | --------------- |
+| default | True |
+| MGMT | False |
+
+#### IP Routing Device Configuration
+
+```eos
+!
+ip routing
+no ip routing vrf MGMT
+```
+
+### IPv6 Routing
+
+#### IPv6 Routing Summary
+
+| VRF | Routing Enabled |
+| --- | --------------- |
+| default | False |
+| MGMT | False |
+
+### Static Routes
+
+#### Static Routes Summary
+
+| VRF | Destination Prefix | Next Hop IP | Exit interface | Administrative Distance | Tag | Route Name | Metric |
+| --- | ------------------ | ----------- | -------------- | ----------------------- | --- | ---------- | ------ |
+| MGMT | 0.0.0.0/0 | 172.16.1.1 | - | 1 | - | - | - |
+
+#### Static Routes Device Configuration
+
+```eos
+!
+ip route vrf MGMT 0.0.0.0/0 172.16.1.1
+```
+
+### Router BGP
+
+ASN Notation: asplain
+
+#### Router BGP Summary
+
+| BGP AS | Router ID |
+| ------ | --------- |
+| 65000 | 192.168.101.202 |
+
+| BGP Tuning |
+| ---------- |
+| no bgp default ipv4-unicast |
+| maximum-paths 4 |
+
+#### Router BGP Peer Groups
+
+##### EVPN-OVERLAY-PEERS
+
+| Settings | Value |
+| -------- | ----- |
+| Address Family | evpn |
+| Next-hop unchanged | True |
+| Source | Loopback0 |
+| BFD | True |
+| Ebgp multihop | 3 |
+| Send community | all |
+| Maximum routes | 0 (no limit) |
+
+##### IPv4-UNDERLAY-PEERS
+
+| Settings | Value |
+| -------- | ----- |
+| Address Family | ipv4 |
+| Send community | all |
+| Maximum routes | 256000 |
+
+#### BGP Neighbors
+
+| Neighbor | Remote AS | VRF | Shutdown | Send-community | Maximum-routes | Maximum-accepted-routes | Maximum-advertised-routes | Allowas-in | BFD | RIB Pre-Policy Retain | Route-Reflector Client | Passive | TTL Max Hops |
+| -------- | --------- | --- | -------- | -------------- | -------------- | ----------------------- | ------------------------- | ---------- | --- | --------------------- | ---------------------- | ------- | ------------ |
+| 192.168.101.11 | 65001 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.101.12 | 65001 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.101.13 | 65002 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.101.14 | 65002 | default | - | Inherited from peer group EVPN-OVERLAY-PEERS | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | Inherited from peer group EVPN-OVERLAY-PEERS | - | - | - | - |
+| 192.168.103.43 | 65001 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - | - | - |
+| 192.168.103.47 | 65001 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - | - | - |
+| 192.168.103.51 | 65002 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - | - | - |
+| 192.168.103.55 | 65002 | default | - | Inherited from peer group IPv4-UNDERLAY-PEERS | Inherited from peer group IPv4-UNDERLAY-PEERS | - | - | - | - | - | - | - | - |
+
+#### Router BGP EVPN Address Family
+
+##### EVPN Peer Groups
+
+| Peer Group | Activate | Route-map In | Route-map Out | Peer-tag In | Peer-tag Out | Encapsulation | Next-hop-self Source Interface |
+| ---------- | -------- | ------------ | ------------- | ----------- | ------------ | ------------- | ------------------------------ |
+| EVPN-OVERLAY-PEERS | True | - | - | - | - | default | - |
+
+#### Router BGP Device Configuration
+
+```eos
+!
+router bgp 65000
+   router-id 192.168.101.202
+   no bgp default ipv4-unicast
+   maximum-paths 4
+   neighbor EVPN-OVERLAY-PEERS peer group
+   neighbor EVPN-OVERLAY-PEERS next-hop-unchanged
+   neighbor EVPN-OVERLAY-PEERS update-source Loopback0
+   neighbor EVPN-OVERLAY-PEERS bfd
+   neighbor EVPN-OVERLAY-PEERS ebgp-multihop 3
+   neighbor EVPN-OVERLAY-PEERS send-community
+   neighbor EVPN-OVERLAY-PEERS maximum-routes 0
+   neighbor IPv4-UNDERLAY-PEERS peer group
+   neighbor IPv4-UNDERLAY-PEERS send-community
+   neighbor IPv4-UNDERLAY-PEERS maximum-routes 256000
+   neighbor 192.168.101.11 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.11 remote-as 65001
+   neighbor 192.168.101.11 description dc1-spine1_Loopback0
+   neighbor 192.168.101.12 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.12 remote-as 65001
+   neighbor 192.168.101.12 description dc1-spine2_Loopback0
+   neighbor 192.168.101.13 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.13 remote-as 65002
+   neighbor 192.168.101.13 description dc1-spine3_Loopback0
+   neighbor 192.168.101.14 peer group EVPN-OVERLAY-PEERS
+   neighbor 192.168.101.14 remote-as 65002
+   neighbor 192.168.101.14 description dc1-spine4_Loopback0
+   neighbor 192.168.103.43 peer group IPv4-UNDERLAY-PEERS
+   neighbor 192.168.103.43 remote-as 65001
+   neighbor 192.168.103.43 description dc1-spine1_Ethernet2
+   neighbor 192.168.103.47 peer group IPv4-UNDERLAY-PEERS
+   neighbor 192.168.103.47 remote-as 65001
+   neighbor 192.168.103.47 description dc1-spine2_Ethernet2
+   neighbor 192.168.103.51 peer group IPv4-UNDERLAY-PEERS
+   neighbor 192.168.103.51 remote-as 65002
+   neighbor 192.168.103.51 description dc1-spine3_Ethernet2
+   neighbor 192.168.103.55 peer group IPv4-UNDERLAY-PEERS
+   neighbor 192.168.103.55 remote-as 65002
+   neighbor 192.168.103.55 description dc1-spine4_Ethernet2
+   redistribute connected route-map RM-CONN-2-BGP
+   !
+   address-family evpn
+      neighbor EVPN-OVERLAY-PEERS activate
+   !
+   address-family ipv4
+      no neighbor EVPN-OVERLAY-PEERS activate
+      neighbor IPv4-UNDERLAY-PEERS activate
+```
+
+## BFD
+
+### Router BFD
+
+#### Router BFD Multihop Summary
+
+| Interval | Minimum RX | Multiplier |
+| -------- | ---------- | ---------- |
+| 1200 | 1200 | 3 |
+
+#### Router BFD Device Configuration
+
+```eos
+!
+router bfd
+   multihop interval 1200 min-rx 1200 multiplier 3
+```
+
+## Filters
+
+### Prefix-lists
+
+#### Prefix-lists Summary
+
+##### PL-LOOPBACKS-EVPN-OVERLAY
+
+| Sequence | Action |
+| -------- | ------ |
+| 10 | permit 192.168.101.0/24 eq 32 |
+
+#### Prefix-lists Device Configuration
+
+```eos
+!
+ip prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+   seq 10 permit 192.168.101.0/24 eq 32
+```
+
+### Route-maps
+
+#### Route-maps Summary
+
+##### RM-CONN-2-BGP
+
+| Sequence | Type | Match | Set | Sub-Route-Map | Continue |
+| -------- | ---- | ----- | --- | ------------- | -------- |
+| 10 | permit | ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY | - | - | - |
+
+#### Route-maps Device Configuration
+
+```eos
+!
+route-map RM-CONN-2-BGP permit 10
+   match ip address prefix-list PL-LOOPBACKS-EVPN-OVERLAY
+```
+
+## VRF Instances
+
+### VRF Instances Summary
+
+| VRF Name | IP Routing |
+| -------- | ---------- |
+| MGMT | disabled |
+
+### VRF Instances Device Configuration
+
+```eos
+!
+vrf instance MGMT
+```

@@ -1,7 +1,6 @@
 aaa_root:
   disabled: true
 config_end: true
-<<<<<<< HEAD
 daemon_terminattr:
   cvaddrs:
   - apiserver.cv-staging.corp.arista.io:443
@@ -12,8 +11,124 @@ daemon_terminattr:
   cvvrf: MGMT
   disable_aaa: false
   smashexcludes: ale,flexCounter,hardware,kni,pulse,strata
-=======
->>>>>>> cc8e22f (Fix Makefile)
+dhcp_servers:
+- vrf: default
+  lease_time_ipv4:
+    days: 1
+    hours: 0
+    minutes: 0
+  dns_servers_ipv4:
+  - 8.8.8.8
+  - 8.8.4.4
+  - 1.1.1.1
+  ipv4_vendor_options:
+  - vendor_id: NTP
+    sub_options:
+    - code: 42
+      array_ipv4_address:
+      - 216.239.35.0
+      - 216.239.35.4
+  ipv4_subnets:
+  - subnet: 10.26.10.0/24
+    default_gateway: 10.26.10.1
+    reservations:
+    - mac_address: FE:ED:BE:EF:AA:AA
+      ipv4_address: 10.26.10.100
+      hostname: testhost1
+    name: VLAN10
+    ranges:
+    - start: 10.26.10.11
+      end: 10.26.10.254
+  - subnet: 10.26.20.0/24
+    default_gateway: 10.26.20.1
+    name: VLAN20
+    ranges:
+    - start: 10.26.20.11
+      end: 10.26.20.254
+  - subnet: 10.26.25.0/24
+    default_gateway: 10.26.25.1
+    name: VLAN25
+    ranges:
+    - start: 10.26.25.11
+      end: 10.26.25.254
+  - subnet: 10.26.30.0/24
+    default_gateway: 10.26.30.1
+    name: VLAN30
+    ranges:
+    - start: 10.26.30.11
+      end: 10.26.30.254
+  - subnet: 10.26.42.0/24
+    default_gateway: 10.26.42.1
+    name: VLAN42
+    ranges:
+    - start: 10.26.42.11
+      end: 10.26.42.254
+  - subnet: 10.26.44.0/24
+    default_gateway: 10.26.44.1
+    name: VLAN44
+    ranges:
+    - start: 10.26.44.11
+      end: 10.26.44.254
+  - subnet: 10.26.46.0/24
+    default_gateway: 10.26.46.1
+    name: VLAN46
+    ranges:
+    - start: 10.26.46.11
+      end: 10.26.46.254
+  - subnet: 10.26.48.0/24
+    default_gateway: 10.26.48.1
+    name: VLAN48
+    ranges:
+    - start: 10.26.48.11
+      end: 10.26.48.254
+  - subnet: 10.26.50.0/24
+    default_gateway: 10.26.50.1
+    name: VLAN50
+    ranges:
+    - start: 10.26.50.11
+      end: 10.26.50.254
+  - subnet: 10.26.51.0/24
+    default_gateway: 10.26.51.1
+    name: VLAN51
+    ranges:
+    - start: 10.26.51.11
+      end: 10.26.51.254
+  - subnet: 10.26.60.0/24
+    default_gateway: 10.26.60.1
+    name: VLAN60
+    ranges:
+    - start: 10.26.60.11
+      end: 10.26.60.254
+  - subnet: 10.26.70.0/24
+    default_gateway: 10.26.70.1
+    name: VLAN70
+    ranges:
+    - start: 10.26.70.11
+      end: 10.26.70.254
+  - subnet: 10.26.99.0/24
+    default_gateway: 10.26.99.1
+    name: VLAN99
+    ranges:
+    - start: 10.26.99.11
+      end: 10.26.99.254
+  - subnet: 10.26.102.0/24
+    default_gateway: 10.26.102.1
+    name: VLAN102
+    ranges:
+    - start: 10.26.102.11
+      end: 10.26.102.254
+  - subnet: 10.26.199.0/24
+    default_gateway: 10.26.199.1
+    name: VLAN199
+    ranges:
+    - start: 10.26.199.11
+      end: 10.26.199.254
+  - subnet: 10.26.200.0/24
+    default_gateway: 10.26.200.1
+    name: VLAN200
+    ranges:
+    - start: 10.26.200.11
+      end: 10.26.200.254
 enable_password:
   disabled: true
 ethernet_interfaces:
@@ -70,10 +185,7 @@ ip_name_server:
   vrfs:
   - name: MGMT
     servers:
-<<<<<<< HEAD
     - ip_address: 8.8.8.8
-=======
->>>>>>> cc8e22f (Fix Makefile)
     - ip_address: 192.168.1.1
 ip_routing: true
 local_users:

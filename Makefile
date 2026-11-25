@@ -18,6 +18,10 @@ stop: ## Destroy the lab
 build: ## Generate configurations and documentation
 	ansible-playbook build.yml
 
+.PHONY: build-twin
+build-twin: ## Generate digital twin configurations for the DIGITAL_TWIN inventory group
+	ansible-playbook build-twin.yml -e twinventory=DIGITAL_TWIN
+
 .PHONY: deploy
 deploy: ## Deploy generated configurations using eAPI
 	ansible-playbook deploy.yml

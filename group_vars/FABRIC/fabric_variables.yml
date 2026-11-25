@@ -85,3 +85,125 @@ ntp_settings:
   server_vrf: use_mgmt_interface_vrf
   servers:
     - name: 0.pool.ntp.org
+
+# DHCP server pools for 10.26.XX.0/24 networks (XX = VLAN ID)
+# DNS: Google (8.8.8.8/8.8.4.4) + Cloudflare (1.1.1.1)
+# NTP: Google public NTP IPs via DHCP option 42 (vendor_id NTP, sub-option code 42)
+custom_structured_configuration_dhcp_servers:
+  - vrf: default
+    lease_time_ipv4:
+      days: 1
+      hours: 0
+      minutes: 0
+    dns_servers_ipv4:
+      - 8.8.8.8
+      - 8.8.4.4
+      - 1.1.1.1
+    ipv4_vendor_options:
+      - vendor_id: NTP
+        sub_options:
+          - code: 42
+            array_ipv4_address:
+              - 216.239.35.0
+              - 216.239.35.4
+    ipv4_subnets:
+      - subnet: 10.26.10.0/24
+        name: VLAN10
+        default_gateway: 10.26.10.1
+        ranges:
+          - start: 10.26.10.11
+            end: 10.26.10.254
+        reservations:
+          - ipv4_address: 10.26.10.100
+            mac_address: FE:ED:BE:EF:AA:AA
+            hostname: testhost1
+      - subnet: 10.26.20.0/24
+        name: VLAN20
+        default_gateway: 10.26.20.1
+        ranges:
+          - start: 10.26.20.11
+            end: 10.26.20.254
+      - subnet: 10.26.25.0/24
+        name: VLAN25
+        default_gateway: 10.26.25.1
+        ranges:
+          - start: 10.26.25.11
+            end: 10.26.25.254
+      - subnet: 10.26.30.0/24
+        name: VLAN30
+        default_gateway: 10.26.30.1
+        ranges:
+          - start: 10.26.30.11
+            end: 10.26.30.254
+      - subnet: 10.26.42.0/24
+        name: VLAN42
+        default_gateway: 10.26.42.1
+        ranges:
+          - start: 10.26.42.11
+            end: 10.26.42.254
+      - subnet: 10.26.44.0/24
+        name: VLAN44
+        default_gateway: 10.26.44.1
+        ranges:
+          - start: 10.26.44.11
+            end: 10.26.44.254
+      - subnet: 10.26.46.0/24
+        name: VLAN46
+        default_gateway: 10.26.46.1
+        ranges:
+          - start: 10.26.46.11
+            end: 10.26.46.254
+      - subnet: 10.26.48.0/24
+        name: VLAN48
+        default_gateway: 10.26.48.1
+        ranges:
+          - start: 10.26.48.11
+            end: 10.26.48.254
+      - subnet: 10.26.50.0/24
+        name: VLAN50
+        default_gateway: 10.26.50.1
+        ranges:
+          - start: 10.26.50.11
+            end: 10.26.50.254
+      - subnet: 10.26.51.0/24
+        name: VLAN51
+        default_gateway: 10.26.51.1
+        ranges:
+          - start: 10.26.51.11
+            end: 10.26.51.254
+      - subnet: 10.26.60.0/24
+        name: VLAN60
+        default_gateway: 10.26.60.1
+        ranges:
+          - start: 10.26.60.11
+            end: 10.26.60.254
+      - subnet: 10.26.70.0/24
+        name: VLAN70
+        default_gateway: 10.26.70.1
+        ranges:
+          - start: 10.26.70.11
+            end: 10.26.70.254
+      - subnet: 10.26.99.0/24
+        name: VLAN99
+        default_gateway: 10.26.99.1
+        ranges:
+          - start: 10.26.99.11
+            end: 10.26.99.254
+      - subnet: 10.26.102.0/24
+        name: VLAN102
+        default_gateway: 10.26.102.1
+        ranges:
+          - start: 10.26.102.11
+            end: 10.26.102.254
+      - subnet: 10.26.199.0/24
+        name: VLAN199
+        default_gateway: 10.26.199.1
+        ranges:
+          - start: 10.26.199.11
+            end: 10.26.199.254
+      - subnet: 10.26.200.0/24
+        name: VLAN200
+        default_gateway: 10.26.200.1
+        ranges:
+          - start: 10.26.200.11
+            end: 10.26.200.254

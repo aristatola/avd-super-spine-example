@@ -11,11 +11,11 @@
 - [Authentication](#authentication)
   - [Local Users](#local-users)
   - [Enable Password](#enable-password)
-<<<<<<< HEAD
+- [DHCP Server](#dhcp-server)
+  - [DHCP Servers Summary](#dhcp-servers-summary)
+  - [DHCP Server Configuration](#dhcp-server-configuration)
 - [Monitoring](#monitoring)
   - [TerminAttr Daemon](#terminattr-daemon)
-=======
->>>>>>> cc8e22f (Fix Makefile)
 - [MLAG](#mlag)
   - [MLAG Summary](#mlag-summary)
   - [MLAG Device Configuration](#mlag-device-configuration)
@@ -87,19 +87,13 @@ interface Management1
 
 | Name Server | VRF | Priority |
 | ----------- | --- | -------- |
-<<<<<<< HEAD
 | 8.8.8.8 | MGMT | - |
-=======
->>>>>>> cc8e22f (Fix Makefile)
 | 192.168.1.1 | MGMT | - |
 
 #### IP Name Servers Device Configuration
 
 ```eos
-<<<<<<< HEAD
 ip name-server vrf MGMT 8.8.8.8
-=======
->>>>>>> cc8e22f (Fix Makefile)
 ip name-server vrf MGMT 192.168.1.1
 ```
 
@@ -192,16 +186,170 @@ username arista privilege 15 role network-admin secret sha512 <removed>
 
 Enable password has been disabled
 
-<<<<<<< HEAD
+## DHCP Server
+
+### DHCP Servers Summary
+
+| DHCP Server Enabled | VRF | IPv4 DNS Domain | IPv4 DNS Servers | TFTP Bootfile Name (Option 67) | TFTP Server Name (Option 66) | TFTP Server IPs (Option 150) | IPv4 Lease Time | IPv6 DNS Domain | IPv6 DNS Servers | IPv6 TFTP Bootfile URL (Option 59) | IPv6 Lease Time |
+| ------------------- | --- | --------------- | ---------------- | ------------------------------ | ---------------------------- | ---------------------------- | --------------- | --------------- | ---------------- | ---------------------------------- | --------------- |
+| True | default | - | 8.8.8.8, 8.8.4.4, 1.1.1.1 | - | - | - | 1 days 0 hours 0 minutes | - | - | - | - |
+
+#### VRF default DHCP Server
+
+##### IPv4 Subnets
+
+| Subnet | Name | DNS Servers | Default Gateway | Lease Time | Ranges | TFTP Bootfile Name (Option 67) | TFTP Server Name (Option 66) | TFTP Server IPs (Option 150) |
+| ------ | ---- | ----------- | --------------- | ---------- | ------ | ------------------------------ | ---------------------------- | ---------------------------- |
+| 10.26.10.0/24 | VLAN10 | - | 10.26.10.1 | - | 10.26.10.11-10.26.10.254 | - | - | - |
+| 10.26.20.0/24 | VLAN20 | - | 10.26.20.1 | - | 10.26.20.11-10.26.20.254 | - | - | - |
+| 10.26.25.0/24 | VLAN25 | - | 10.26.25.1 | - | 10.26.25.11-10.26.25.254 | - | - | - |
+| 10.26.30.0/24 | VLAN30 | - | 10.26.30.1 | - | 10.26.30.11-10.26.30.254 | - | - | - |
+| 10.26.42.0/24 | VLAN42 | - | 10.26.42.1 | - | 10.26.42.11-10.26.42.254 | - | - | - |
+| 10.26.44.0/24 | VLAN44 | - | 10.26.44.1 | - | 10.26.44.11-10.26.44.254 | - | - | - |
+| 10.26.46.0/24 | VLAN46 | - | 10.26.46.1 | - | 10.26.46.11-10.26.46.254 | - | - | - |
+| 10.26.48.0/24 | VLAN48 | - | 10.26.48.1 | - | 10.26.48.11-10.26.48.254 | - | - | - |
+| 10.26.50.0/24 | VLAN50 | - | 10.26.50.1 | - | 10.26.50.11-10.26.50.254 | - | - | - |
+| 10.26.51.0/24 | VLAN51 | - | 10.26.51.1 | - | 10.26.51.11-10.26.51.254 | - | - | - |
+| 10.26.60.0/24 | VLAN60 | - | 10.26.60.1 | - | 10.26.60.11-10.26.60.254 | - | - | - |
+| 10.26.70.0/24 | VLAN70 | - | 10.26.70.1 | - | 10.26.70.11-10.26.70.254 | - | - | - |
+| 10.26.99.0/24 | VLAN99 | - | 10.26.99.1 | - | 10.26.99.11-10.26.99.254 | - | - | - |
+| 10.26.102.0/24 | VLAN102 | - | 10.26.102.1 | - | 10.26.102.11-10.26.102.254 | - | - | - |
+| 10.26.199.0/24 | VLAN199 | - | 10.26.199.1 | - | 10.26.199.11-10.26.199.254 | - | - | - |
+| 10.26.200.0/24 | VLAN200 | - | 10.26.200.1 | - | 10.26.200.11-10.26.200.254 | - | - | - |
+
+###### DHCP Reservations in subnet 10.26.10.0/24
+
+| Mac Address | IPv4 Address | Hostname |
+| ----------- | ------------ | -------- |
+| FE:ED:BE:EF:AA:AA | 10.26.10.100 | testhost1 |
+
+##### IPv4 Vendor Options
+
+| Vendor ID | Sub-option Code | Sub-option Type | Sub-option Data |
+| --------- | --------------- | --------------- | --------------- |
+| NTP | 42 | array ipv4-address | 216.239.35.0 216.239.35.4 |
+
+### DHCP Server Configuration
+
+```eos
+!
+dhcp server
+   lease time ipv4 1 days 0 hours 0 minutes
+   dns server ipv4 1.1.1.1 8.8.4.4 8.8.8.8
+   !
+   subnet 10.26.10.0/24
+      reservations
+         mac-address FE:ED:BE:EF:AA:AA
+            ipv4-address 10.26.10.100
+            hostname testhost1
+      !
+      range 10.26.10.11 10.26.10.254
+      name VLAN10
+      default-gateway 10.26.10.1
+   !
+   subnet 10.26.20.0/24
+      !
+      range 10.26.20.11 10.26.20.254
+      name VLAN20
+      default-gateway 10.26.20.1
+   !
+   subnet 10.26.25.0/24
+      !
+      range 10.26.25.11 10.26.25.254
+      name VLAN25
+      default-gateway 10.26.25.1
+   !
+   subnet 10.26.30.0/24
+      !
+      range 10.26.30.11 10.26.30.254
+      name VLAN30
+      default-gateway 10.26.30.1
+   !
+   subnet 10.26.42.0/24
+      !
+      range 10.26.42.11 10.26.42.254
+      name VLAN42
+      default-gateway 10.26.42.1
+   !
+   subnet 10.26.44.0/24
+      !
+      range 10.26.44.11 10.26.44.254
+      name VLAN44
+      default-gateway 10.26.44.1
+   !
+   subnet 10.26.46.0/24
+      !
+      range 10.26.46.11 10.26.46.254
+      name VLAN46
+      default-gateway 10.26.46.1
+   !
+   subnet 10.26.48.0/24
+      !
+      range 10.26.48.11 10.26.48.254
+      name VLAN48
+      default-gateway 10.26.48.1
+   !
+   subnet 10.26.50.0/24
+      !
+      range 10.26.50.11 10.26.50.254
+      name VLAN50
+      default-gateway 10.26.50.1
+   !
+   subnet 10.26.51.0/24
+      !
+      range 10.26.51.11 10.26.51.254
+      name VLAN51
+      default-gateway 10.26.51.1
+   !
+   subnet 10.26.60.0/24
+      !
+      range 10.26.60.11 10.26.60.254
+      name VLAN60
+      default-gateway 10.26.60.1
+   !
+   subnet 10.26.70.0/24
+      !
+      range 10.26.70.11 10.26.70.254
+      name VLAN70
+      default-gateway 10.26.70.1
+   !
+   subnet 10.26.99.0/24
+      !
+      range 10.26.99.11 10.26.99.254
+      name VLAN99
+      default-gateway 10.26.99.1
+   !
+   subnet 10.26.102.0/24
+      !
+      range 10.26.102.11 10.26.102.254
+      name VLAN102
+      default-gateway 10.26.102.1
+   !
+   subnet 10.26.199.0/24
+      !
+      range 10.26.199.11 10.26.199.254
+      name VLAN199
+      default-gateway 10.26.199.1
+   !
+   subnet 10.26.200.0/24
+      !
+      range 10.26.200.11 10.26.200.254
+      name VLAN200
+      default-gateway 10.26.200.1
+   !
+   vendor-option ipv4 NTP
+      sub-option 42 type array ipv4-address data 216.239.35.0 216.239.35.4
+```
+
 ## Monitoring
 
 ### TerminAttr Daemon
 
 #### TerminAttr Daemon Summary
 
-| CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Ingest Exclude | Bypass AAA |
-| -------------- | ------------------- | --- | -------------- | -------------- | -------------- | ---------- |
-| gzip | apiserver.cv-staging.corp.arista.io:443 | MGMT | token-secure,/mnt/flash/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | - | False |
+| CV Compression | CloudVision Servers | VRF | Authentication | Smash Excludes | Sysdb Excludes | Ingest Exclude | Bypass AAA |
+| -------------- | ------------------- | --- | -------------- | -------------- | -------------- | -------------- | ---------- |
+| gzip | apiserver.cv-staging.corp.arista.io:443 | MGMT | token-secure,/mnt/flash/cv-onboarding-token | ale,flexCounter,hardware,kni,pulse,strata | - | - | False |
 
 #### TerminAttr Daemon Device Configuration
 
@@ -212,8 +360,6 @@ daemon TerminAttr
    no shutdown
 ```
 
-=======
->>>>>>> cc8e22f (Fix Makefile)
 ## MLAG
 
 ### MLAG Summary
